@@ -6,7 +6,7 @@ Storybook addon to show themes and use ecosystem for global theme value.
 From the root of your repo:
 
 ```console
-yarn add -D @s360/drupal-scss-addon
+yarn add -D @square360/drupal-scss-addon
 ```
 
 ## Getting started
@@ -19,7 +19,7 @@ module.exports = {
   // ...
   addons: [
     // ...
-    '@s360/drupal-scss-addon',
+    '@square360/drupal-scss-addon',
   ],
   // ...
 };

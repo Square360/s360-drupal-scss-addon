@@ -1,5 +1,5 @@
 {
-  "name": "@s360/drupal-scss-addon",
+  "name": "@square360/drupal-scss-addon",
   "version": "0.0.1",
   "description": "Storybook addon to show themes and use ecosystem for global theme value.",
   "keywords": [
@@ -84,5 +84,9 @@
       "react"
     ],
     "icon": "https://user-images.githubusercontent.com/91978943/184945384-3452599f-ef4d-44a9-93a6-390fabc54065.png"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/renafletcher0068/s360-drupal-scss-addon/issues"
+  },
+  "homepage": "https://github.com/renafletcher0068/s360-drupal-scss-addon#readme"
 }
