@@ -1,5 +1,5 @@
 # Storybook Addon Drupal SCSS Theming
-Storybook addon to show themes and use ecosystem for global theme value.
+Storybook addon to show themes and use cohesive ecosystem for global theme value.
 
 ## Installation
 
@@ -27,16 +27,16 @@ module.exports = {
 
 Then, configure the `supportedThemes` and `selectedTheme` parameters in `.storybook/preview.js`.
 
-`supportedThemes` is an object where the keys are the id's of dropdown and value are theme name which will show in dropdown of storybook preview toolbar.
+`supportedThemes` is an object where the keys are the IDs of the dropdown, and the values are the theme names that will show in the dropdown of the storybook preview toolbar.
 
 ```javascript
 // .storybook/preview.js
 export const parameters = {
   // ...
-  selectedTheme: 'economics',
+  selectedTheme: "primary",
   supportedThemes: {
-    economics: "Economics",
-    cowles: "Cowles"
+    primary: "Primary",
+    secondary: "Secondary"
   },
   // ...
 };
@@ -50,7 +50,7 @@ yarn storybook
 
 # Usage in Stories
 
-The currently selected theme is available in the `selectedTheme` globally, you can access it in `MyComponent.stories.js`. eg:
+The currently selected theme is available in `selectedTheme` globally, you can access it in `MyComponent.stories.js`. eg:
 
 ```js
 const Template = (args, { globals: { selectedTheme } }) => {
