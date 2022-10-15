@@ -16,17 +16,15 @@ export const Tool = () => {
     const { selectedTheme, supportedThemes } = globals;
 
     return supportedThemes ?
-      Object.entries(supportedThemes).map(([id, title]) => {
-        return {
-          id,
-          title,
-          active: selectedTheme === id,
-          onClick: () => {
-            selectTheme(id);
-            onHide();
-          }
-        };
-      }) : [{
+      Object.entries(supportedThemes).map(([id, title]) => ({
+        id,
+        title,
+        active: selectedTheme === id,
+        onClick: () => {
+          selectTheme(id);
+          onHide();
+        }
+      })) : [{
         id: "no-themes",
         title: "Add supportedThemes in parameters of `.storybook/preview.js`",
         active: false,

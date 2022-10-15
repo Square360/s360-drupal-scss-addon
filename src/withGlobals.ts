@@ -28,12 +28,10 @@ export const withGlobals: DecoratorFunction = (
     try {
       if (globals?.selectedTheme) {
         const themeName = globals?.selectedTheme;
-        const defaultTheme = context?.parameters?.selectedTheme === themeName;
         const filenameSplitter = context?.parameters?.fileName?.replace(".stories.js", "").split("/").slice(2);
         const componentName = filenameSplitter.splice((filenameSplitter.length - 1), 1);
-        const componentPath = `/${filenameSplitter.join("/")}/`;
 
-        if (defaultTheme) {
+        if (context?.parameters?.selectedTheme === themeName) {
           Object.keys(context?.parameters?.supportedThemes || {}).forEach(item => {
             const styleId = `${ADDON_ID.replace(/\//g, "-")}-${componentName}-${item}`;
             const removeStyle = document.getElementById(styleId);
@@ -43,7 +41,7 @@ export const withGlobals: DecoratorFunction = (
           });
         } else {
           const styleId = `${ADDON_ID.replace(/\//g, "-")}-${componentName}-${themeName}`;
-          const stylesheetPath = `${componentPath}${themeName}/${componentName}.${themeName}.css`;
+          const stylesheetPath = `/${filenameSplitter.join("/")}/${themeName}/${componentName}.${themeName}.css`;
 
           const existStyle = document.getElementById(styleId);
 

@@ -60,6 +60,54 @@ const Template = (args, { globals: { selectedTheme } }) => {
 };
 ```
 
+# Usage with CSS
+
+There is another way to use this addon. You just enable `../dist/` staticDir in `.storybook/main.js` globally.
+
+```js
+module.exports = {
+  stories: [
+    '../src/**/*.stories.@(js|ts)',
+  ],
+  addons: [
+    '@storybook/addon-a11y',
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@square360/drupal-scss-addon',
+  ],
+  staticDirs: [
+    '../dist/', // this one
+    './fontawesome'
+  ],
+};
+```
+
+Now your directory structure should be like this:
+
+```shell
+/{component-name}
+  {component-name}.stories.js
+  {component-name}.js
+  {component-name}.scss
+  {component-name}.twig
+  {component-name}.yml
+  /{theme-name}
+    {component-name}.{theme-name}.js
+    {component-name}.{theme-name}.scss
+    {component-name}.{theme-name}.yml (optional)
+    {component-name}.{theme-name}.twig (optional)
+```
+
+The above should create the following files inside the `dist` folder on root:
+
+```shell
+{component-name}/{component-name}.css
+{component-name}/{component-name}.js
+{component-name}/{theme-name}/{component-name}.{theme-name}.css
+{component-name}/{theme-name}/{component-name}.{theme-name}.js
+```
+By following the above instruction addon will call css files according the story component loaded and theme changes from dropdown.
+
 <!--
 npm login
 npm publish --access public
