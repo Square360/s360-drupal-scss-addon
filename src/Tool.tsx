@@ -12,7 +12,7 @@ export const Tool = () => {
     []
   );
 
-  const createLinks = (tooltipFns: WithHideFn) => {
+  const createLinks = ({ onHide }: WithHideFn) => {
     const { selectedTheme, supportedThemes } = globals;
 
     return supportedThemes ?
@@ -23,7 +23,7 @@ export const Tool = () => {
           active: selectedTheme === id,
           onClick: () => {
             selectTheme(id);
-            tooltipFns.onHide();
+            onHide();
           }
         };
       }) : [{
@@ -31,7 +31,7 @@ export const Tool = () => {
         title: "Add supportedThemes in parameters of `.storybook/preview.js`",
         active: false,
         onClick: () => {
-          tooltipFns.onHide();
+          onHide();
         }
       }];
   };
@@ -50,7 +50,7 @@ export const Tool = () => {
         active={true}
         title="Select theme for switching SCSS"
       >
-        <Icons icon="paintbrush" /> &nbsp; Themes
+        💧&nbsp;<span style={{textTransform: 'capitalize'}}>{globals?.selectedTheme || 'Themes'}</span>
       </IconButton>
     </WithTooltip>
   );

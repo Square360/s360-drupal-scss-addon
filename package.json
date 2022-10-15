@@ -1,6 +1,6 @@
 {
   "name": "@square360/drupal-scss-addon",
-  "version": "0.0.5",
+  "version": "0.1.1",
   "description": "Storybook addon to show themes and use ecosystem for global theme value.",
   "keywords": [
     "style", "design", "storybook-addons"

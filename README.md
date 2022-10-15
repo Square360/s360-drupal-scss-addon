@@ -1,5 +1,5 @@
 # Storybook Addon Drupal SCSS Theming
-Storybook addon to show themes and use cohesive ecosystem for global theme value.
+Storybook addon to show themes and use cohesive ecosystem for global theme value. Addon will place other theme stylesheets on head of story book and remove on switch component or change theme.
 
 ## Installation
 
@@ -59,3 +59,8 @@ const Template = (args, { globals: { selectedTheme } }) => {
   return <Button {...args} selectedTheme={selectedTheme} />;
 };
 ```
+
+<!--
+npm login
+npm publish --access public
+-->
