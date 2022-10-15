@@ -1,12 +1,11 @@
 import { ADDON_ID } from "./constants";
-import { useEffect, useState, useGlobals } from "@storybook/addons";
+import { useEffect, useGlobals } from "@storybook/addons";
 import type { DecoratorFunction, StoryContext, StoryFn as StoryFunction } from "@storybook/addons";
 
 export const withGlobals: DecoratorFunction = (
   StoryFn: StoryFunction,
   context: StoryContext
 ) => {
-  const [oldTheme, setOldTheme] = useState("");
   const [globals, updateGlobals] = useGlobals();
 
   useEffect(() => {
@@ -29,31 +28,32 @@ export const withGlobals: DecoratorFunction = (
     try {
       if (globals?.selectedTheme) {
         const themeName = globals?.selectedTheme;
-        const defaultThemeName = context?.parameters?.selectedTheme;
-        const nameSplitter = context?.parameters?.fileName?.replace(".stories.js", "").split("/").slice(2);
-        const componentName = nameSplitter.splice((nameSplitter.length - 1), 1);
-        const componentPath = `/${nameSplitter.join("/")}/`;
+        const defaultTheme = context?.parameters?.selectedTheme === themeName;
+        const filenameSplitter = context?.parameters?.fileName?.replace(".stories.js", "").split("/").slice(2);
+        const componentName = filenameSplitter.splice((filenameSplitter.length - 1), 1);
+        const componentPath = `/${filenameSplitter.join("/")}/`;
 
-        if (oldTheme) {
-          const removeStyle = document.getElementById(oldTheme);
-          if (removeStyle) {
-            removeStyle.parentNode.removeChild(removeStyle);
-          }
-        }
-
-        if (defaultThemeName !== themeName) {
+        if (defaultTheme) {
+          Object.keys(context?.parameters?.supportedThemes || {}).forEach(item => {
+            const styleId = `${ADDON_ID.replace(/\//g, "-")}-${componentName}-${item}`;
+            const removeStyle = document.getElementById(styleId);
+            if (removeStyle) {
+              removeStyle.parentNode.removeChild(removeStyle);
+            }
+          });
+        } else {
           const styleId = `${ADDON_ID.replace(/\//g, "-")}-${componentName}-${themeName}`;
           const stylesheetPath = `${componentPath}${themeName}/${componentName}.${themeName}.css`;
 
-          const addStyle = document.createElement("link");
-          addStyle.setAttribute("id", styleId);
-          addStyle.setAttribute("rel", "stylesheet");
-          addStyle.setAttribute("href", stylesheetPath);
-          document.head.appendChild(addStyle);
+          const existStyle = document.getElementById(styleId);
 
-          setOldTheme(styleId);
-        } else {
-          setOldTheme("");
+          if (!existStyle) {
+            const addStyle = document.createElement("link");
+            addStyle.setAttribute("id", styleId);
+            addStyle.setAttribute("rel", "stylesheet");
+            addStyle.setAttribute("href", stylesheetPath);
+            document.head.appendChild(addStyle);
+          }
         }
       }
     } catch (e) {
